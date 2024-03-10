@@ -34,26 +34,31 @@
 .card {
   width: calc(45% - 20px);
   margin: 15px;
-  /* padding: 10px; */
+  /* padding: 500px; */
   /* border: 1px solid #ccc; */
   border-radius: 10px;
-  box-shadow: 0 5px 15px #d0a98f;
+  box-shadow: 0 5px 10px #d0a98f;
   background-color: #d0a98f;
   /* display: inline-block; */
   vertical-align: top;
   text-align: center;
   height: 400px; /* Adjust the height as needed */
   overflow: hidden;
+  transition: box-shadow 0.15s ease;
+}
+.card:hover {
+  box-shadow: 5px 10px 20px #d0a98f;
 }
 .card img {
   max-width: 100%;
   max-height: 70%; /* Adjust the image height */
   border-radius: 5px;
   object-fit: cover;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .card h2 {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   font-size: 18px;
 }
 
