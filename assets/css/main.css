@@ -7,6 +7,73 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 /* Define the styles for the link */
+/* CSS for modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+#modal-video {
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensure block display */
+  margin: 0 auto; /* Center horizontally */
+  margin-top: 50px;
+  max-height: 400px;
+}
+
+/* Modal content */
+.modal-content {
+  position: relative;
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 800px;
+  max-height: 80%;
+  background-color: #2e3842;
+  padding: 20px;
+}
+
+/* Close button */
+#close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#close-modal:hover,
+#close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.lab_vids {
+  box-shadow: 0 5px 10px #d0a98f;
+  background-color: #d0a98f;
+  text-align: center;
+}
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.item {
+  display: inline-block;
+  width: 200px; /* Set width for each item */
+  height: 200px; /* Set height for each item */
+  background-color: #f0f0f0;
+  margin: 10px; /* Adjust margin as needed */
+  padding: 20px;
+  font-size: 24px;
+}
 .report {
   margin: 20px;
 }
