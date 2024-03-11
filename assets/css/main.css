@@ -37,6 +37,8 @@
   max-height: 80%;
   background-color: #2e3842;
   padding: 20px;
+  top: 20%;
+  border-radius: 20px;
 }
 
 /* Close button */
@@ -76,6 +78,11 @@
 }
 .report {
   margin: 20px;
+  color: #2e3842;
+}
+
+.report h1 {
+  color: #2e3842;
 }
 .custom-link {
   text-decoration: none; /* Remove underline */
@@ -3376,6 +3383,10 @@ button:disabled,
 .wrapper.style5 h5,
 .wrapper.style5 h6 {
   color: #2e3842;
+}
+
+h1 {
+  font-size: 1.5em;
 }
 
 .wrapper.style5 hr {

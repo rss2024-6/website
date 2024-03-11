@@ -15,6 +15,7 @@ function closeModal() {
   const modal = document.getElementById("video-modal");
   const video = document.getElementById("video");
   modal.style.display = "none";
+  window.location.href = "/videos";
   video.pause();
 }
 

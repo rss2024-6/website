@@ -3,4 +3,5 @@
 <li><a href="/videos/index.html?videoId=lab3/wall_foll_1.mp4">PID Wall Follower Simulation</a></li>
 <li><a href="/videos/index.html?videoId=lab3/corner_sc.mp4">Safety Controller on Corner</a></li>
 <li><a href="/videos/index.html?videoId=lab3/wall_sc.mp4">Safety Controller on Wall</a></li>
+<li><a href="/videos/index.html?videoId=lab3/wall_foll_2.mp4">Pathfinder Wall Follower</a></li>
 </ul>
