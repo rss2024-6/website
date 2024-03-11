@@ -12,6 +12,7 @@ function openModal(videoId) {
 
 // Function to close modal
 function closeModal() {
+  console.log("close modal");
   const modal = document.getElementById("video-modal");
   const video = document.getElementById("video");
   modal.style.display = "none";
