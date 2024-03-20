@@ -1,5 +1,5 @@
 import os
-lab_name = "lab3"
+lab_name = "lab4"
 def generate_scroll_container():
     html = '<div class="scroll-container">\n'
 

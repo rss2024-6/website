@@ -12,9 +12,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
     <noscript
-      ><link rel="stylesheet" href="../assets/css/noscript.css"
+      ><link rel="stylesheet" href="../../assets/css/noscript.css"
     /></noscript>
   </head>
   <body class="is-preload">
@@ -22,7 +22,7 @@
     <div id="page-wrapper">
       <!-- Header -->
       <header id="header">
-        <h1><a href="../index.html">RSS Team 6</a></h1>
+        <h1><a href="../../index.html">RSS Team 6</a></h1>
         <nav id="nav">
           <ul>
             <li class="special">
@@ -36,35 +36,20 @@
       <!-- Main -->
       <article id="main">
         <header>
-          <h2>Labs</h2>
+          <h1>Lab 4: Parking Controller</h1>
         </header>
-        <section class="wrapper style5" style="background-color: #2e3842">
-          <div class="row">
-            <a href="./example_lab/" class="card">
-              <img src="../images/pic01.jpg" alt="Image 1" />
-              <h2>Lab 0: Example Lab</h2>
-            </a>
-
-            <a href="./3" class="card">
-              <img src="./3/imgs/pathfinder.png" alt="Lab 3 img" />
-              <h2>Lab 3: Wall Follower</h2>
-            </a>
-            <a href="./4" class="card">
-              <img src="./4/imgs/lab4_cover.png" alt="Lab 3 img" />
-              <h2>Lab 4: Parking Controller</h2>
-            </a>
-          </div>
-          <!-- <div class="row">
-            <div class="card">
-              <img src="https://via.placeholder.com/300" alt="Image 3" />
-              <h2>Title 3</h2>
-            </div>
-
-            <div class="card">
-              <img src="https://via.placeholder.com/300" alt="Image 4" />
-              <h2>Title 4</h2>
-            </div>
-          </div> -->
+        <section class="wrapper style5">
+          <h1 class="report">Slides</h1>
+          <iframe
+            src="https://docs.google.com/presentation/d/e/2PACX-1vQOzloz3clM64dked0n83H1BB8EHXtF9E2KhG-s4mYXZQfAhn3ldUti7R80kp5Gd-be1k1DD-nxnmfw/embed?start=false&loop=false&delayms=3000"
+            frameborder="0"
+            width="960"
+            height="569"
+            allowfullscreen="true"
+            mozallowfullscreen="true"
+            webkitallowfullscreen="true"
+          ></iframe>
+          <div id="report" class="report"></div>
         </section>
       </article>
 
@@ -105,20 +90,29 @@
     </div>
 
     <!-- Scripts -->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/jquery.scrollex.min.js"></script>
-    <script src="../assets/js/jquery.scrolly.min.js"></script>
-    <script src="../assets/js/browser.min.js"></script>
-    <script src="../assets/js/breakpoints.min.js"></script>
-    <script src="../assets/js/util.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../../assets/js/browser.min.js"></script>
+    <script src="../../assets/js/breakpoints.min.js"></script>
+    <script src="../../assets/js/util.js"></script>
+    <script src="../../assets/js/main.js"></script>
     <script>
       // Load included_content.html into #includedContent div
-      fetch("../menus/menu2.html")
+      fetch("../../menus/menu3.html")
         .then((response) => response.text())
         .then((html) => {
           document.getElementById("menu").innerHTML = html;
         });
     </script>
+    <script>
+      // Load included_content.html into #includedContent div
+      fetch("./report.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("report").innerHTML = html;
+        });
+    </script>
+    <script src="../../videos/script.js"></script>
   </body>
 </html>

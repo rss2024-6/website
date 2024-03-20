@@ -57,6 +57,13 @@
               <div id="lab3"></div>
             </div>
           </div>
+          <div id="lab4_vids" class="lab_vids">
+            <!-- <a href="#" onclick="handleClick('wall_foll_1')">click me</a> -->
+            <h2>Lab 4</h2>
+            <div class="scroll-container">
+              <div id="lab4"></div>
+            </div>
+          </div>
         </section>
       </article>
 
@@ -91,6 +98,14 @@
         .then((response) => response.text())
         .then((html) => {
           document.getElementById("lab3").innerHTML = html;
+        });
+    </script>
+    <script>
+      // Load included_content.html into #includedContent div
+      fetch("./lab4.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("lab4").innerHTML = html;
         });
     </script>
     <script src="script.js"></script>

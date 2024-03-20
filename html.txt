@@ -1,8 +1,5 @@
 <h1>Videos</h1>
 <ul>
-<li><a href="../../videos/index.html?videoId=lab3/wall_foll_1.mp4">PID Wall Follower Simulation</a></li>
-<li><a href="../../videos/index.html?videoId=lab3/wall_foll_split.mp4">PID Wall Follower on Robot</a></li>
-<li><a href="../../videos/index.html?videoId=lab3/wall_foll_2.mp4">Pathfinder Wall Follower</a></li>
-<li><a href="../../videos/index.html?videoId=lab3/corner_sc.mp4">Safety Controller on Corner</a></li>
-<li><a href="../../videos/index.html?videoId=lab3/wall_sc.mp4">Safety Controller on Wall</a></li>
+<li><a href="../../videos/index.html?videoId=/lab4/cone_parking_compressed.mp4">Cone Parking Simulation</a></li>
+<li><a href="../../videos/index.html?videoId=videos/lab4/controller_1_compressed.mp4">Cone Parking Real</a></li>
 </ul>
