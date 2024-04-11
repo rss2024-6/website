@@ -9,3 +9,7 @@ See the deployed website at [https://rss2024-6.github.io/website/](https://rss20
 # Embedding slides
 
 ## TODO
+
+## convert md to html
+
+pandoc --toc --standalone --mathml -f markdown -t html labs/5/report.md -o labs/5/report.html

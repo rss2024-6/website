@@ -35,10 +35,10 @@ As the robot drives about in its environment, its detected location must change 
 
 **Updating Position with Transformation Matrices**
 
-One of the simplest ways to update the position of an object with its odometry is by using transformation matrices, which can be derived from the object’s pose vector, $\bold{x}$, as represented by (1).
+One of the simplest ways to update the position of an object with its odometry is by using transformation matrices, which can be derived from the object’s pose vector, x, as represented by (1).
 
 $$
-\bold{x} = [x,y,\theta]^T \tag{1}
+x = [x,y,\theta]^T \tag{1}
 $$
 
 Here, $x$ and $y$ represent the object’s 2D coordinates and $\theta$ represents its orientation. This pose vector can be used to create a transformation matrix $T$, through formula, (2).
@@ -52,8 +52,6 @@ R & p \\
 \sin(\theta) & \cos(\theta) & y \\
 0 & 0 & 1
 \end{bmatrix} \tag{2}
-
-
 $$
 
 We can use this method to construct the transformation matrix of the object at timestep $k-1$, $T_{x_{k-1}}$, and the odometry, $T_{\Delta x}$, in order to find the updated location of the object at timestep $k$, $T_{x_{k}}$, using formula (3).
@@ -166,16 +164,16 @@ The next step involves adjusting the particle distribution based on incoming LiD
 In step 3, the current odometry data is calculated. Then, the motion model, described in _Section 2.A._, is applied to the current particle distribution and odometry, yielding a new particle distribution for the next timestep. The odometry calculation involves converting continuous-time velocity, $v$, measurements into their displacement counterparts by multiplying them by $dt$, the change in time to find the change in the $x$, $y$, and $\theta$ positions; $dx$, $dy$, and $d\theta$ respectively; as shown in (10).
 
 $$
-dx = v_x*dt \tag{10}\\
-dy = v_y*dt\\
+dx = v_x*dt \tag{10}
+dy = v_y*dt
 d\theta = v_{\theta}*dt
 $$
 
 There were multiple options to get velocity in this equation, such as using the current velocity or the previous. To take both velocities into account, we decided to use the average of the two velocity to calculate odometry for an updated formula, (11).
 
 $$
-dx = (v_x-v_{x0})/2*dt\\
-dy = (v_y-v_{y0})/2*dt\\
+dx = (v_x-v_{x0})/2*dt
+dy = (v_y-v_{y0})/2*dt
 d\theta = (v_{\theta}-v_{\theta0})/2*dt \tag{11}
 $$
 

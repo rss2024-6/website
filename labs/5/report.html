@@ -196,11 +196,6 @@
         vertical-align: middle;
       }
     </style>
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-      type="text/javascript"
-    ></script>
   </head>
   <body>
     <nav id="TOC" role="doc-toc">
@@ -376,55 +371,306 @@
     <p>
       One of the simplest ways to update the position of an object with its
       odometry is by using transformation matrices, which can be derived from
-      the object’s pose vector, <span class="math inline">\(\bold{x}\)</span>,
-      as represented by (1).
+      the object’s pose vector, x, as represented by (1).
     </p>
     <p>
-      <span class="math display">\[ \bold{x} = [x,y,\theta]^T \tag{1} \]</span>
-    </p>
-    <p>
-      Here, <span class="math inline">\(x\)</span> and
-      <span class="math inline">\(y\)</span> represent the object’s 2D
-      coordinates and <span class="math inline">\(\theta\)</span> represents its
-      orientation. This pose vector can be used to create a transformation
-      matrix <span class="math inline">\(T\)</span>, through formula, (2).
-    </p>
-    $$ T =
-    <span class="math display"
-      >\[\begin{bmatrix} R &amp; p \\ 0 &amp; 1 \end{bmatrix}\]</span
-    >
-    =
-    <span class="math display"
-      >\[\begin{bmatrix} \cos(\theta) &amp; -\sin(\theta) &amp; x \\
-      \sin(\theta) &amp; \cos(\theta) &amp; y \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
-      \tag{2}\]</span
-    >
-    <p>$$</p>
-    <p>
-      We can use this method to construct the transformation matrix of the
-      object at timestep <span class="math inline">\(k-1\)</span>,
-      <span class="math inline">\(T_{x_{k-1}}\)</span>, and the odometry,
-      <span class="math inline">\(T_{\Delta x}\)</span>, in order to find the
-      updated location of the object at timestep
-      <span class="math inline">\(k\)</span>,
-      <span class="math inline">\(T_{x_{k}}\)</span>, using formula (3).
-    </p>
-    <p>
-      <span class="math display"
-        >\[ T_{x_k} = T_{x_{k-1}}T_{\Delta x} \tag{3} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>x</mi><mo>=</mo
+            ><msup
+              ><mrow
+                ><mo stretchy="true" form="prefix">[</mo><mi>x</mi><mo>,</mo
+                ><mi>y</mi><mo>,</mo><mi>θ</mi
+                ><mo stretchy="true" form="postfix">]</mo></mrow
+              ><mi>T</mi></msup
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            x = [x,y,\theta]^T \tag{1}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      From, <span class="math inline">\(T_{x_{k}}\)</span>, we can extract
-      entries <span class="math inline">\((1,3), (2, 3), (2, 1)\)</span>, and
-      <span class="math inline">\((1, 1)\)</span>, to get
-      <span class="math inline">\(x\)</span>,
-      <span class="math inline">\(y\)</span>,
-      <span class="math inline">\(sin(\theta)\)</span>, and
-      <span class="math inline">\(cos(\theta)\)</span>, from which we can also
-      get and
-      <span class="math inline"
-        >\(\theta = atan(\frac{sin(\theta)}{cos(\theta})\)</span
+      Here,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>x</mi
+          ><annotation encoding="application/x-tex">x</annotation></semantics
+        ></math
+      >
+      and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>y</mi
+          ><annotation encoding="application/x-tex">y</annotation></semantics
+        ></math
+      >
+      represent the object’s 2D coordinates and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>θ</mi
+          ><annotation encoding="application/x-tex"
+            >\theta</annotation
+          ></semantics
+        ></math
+      >
+      represents its orientation. This pose vector can be used to create a
+      transformation matrix
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>T</mi
+          ><annotation encoding="application/x-tex">T</annotation></semantics
+        ></math
+      >, through formula, (2).
+    </p>
+    <p>
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>T</mi><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">[</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mi>R</mi></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mi>p</mi></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mn>1</mn></mtd
+                  ></mtr
+                ></mtable
+              ><mo stretchy="true" form="postfix">]</mo></mrow
+            ><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">[</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mo>cos</mo
+                    ><mrow
+                      ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+                      ><mo stretchy="true" form="postfix">)</mo></mrow
+                    ></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mi>−</mi><mo>sin</mo
+                    ><mrow
+                      ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+                      ><mo stretchy="true" form="postfix">)</mo></mrow
+                    ></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mi>x</mi></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mo>sin</mo
+                    ><mrow
+                      ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+                      ><mo stretchy="true" form="postfix">)</mo></mrow
+                    ></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mo>cos</mo
+                    ><mrow
+                      ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+                      ><mo stretchy="true" form="postfix">)</mo></mrow
+                    ></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mi>y</mi></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="center" style="text-align: center"
+                    ><mn>1</mn></mtd
+                  ></mtr
+                ></mtable
+              ><mo stretchy="true" form="postfix">]</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            T = \begin{bmatrix} R &amp; p \\ 0 &amp; 1 \end{bmatrix} =
+            \begin{bmatrix} \cos(\theta) &amp; -\sin(\theta) &amp; x \\
+            \sin(\theta) &amp; \cos(\theta) &amp; y \\ 0 &amp; 0 &amp; 1
+            \end{bmatrix} \tag{2}
+          </annotation></semantics
+        ></math
+      >
+    </p>
+    <p>
+      We can use this method to construct the transformation matrix of the
+      object at timestep
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow
+          ><annotation encoding="application/x-tex">k-1</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub
+            ><mi>T</mi
+            ><msub
+              ><mi>x</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub
+            ></msub
+          ><annotation encoding="application/x-tex"
+            >T_{x_{k-1}}</annotation
+          ></semantics
+        ></math
+      >, and the odometry,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub
+            ><mi>T</mi><mrow><mi>Δ</mi><mi>x</mi></mrow></msub
+          ><annotation encoding="application/x-tex"
+            >T_{\Delta x}</annotation
+          ></semantics
+        ></math
+      >, in order to find the updated location of the object at timestep
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>k</mi
+          ><annotation encoding="application/x-tex">k</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub
+            ><mi>T</mi><msub><mi>x</mi><mi>k</mi></msub></msub
+          ><annotation encoding="application/x-tex"
+            >T_{x_{k}}</annotation
+          ></semantics
+        ></math
+      >, using formula (3).
+    </p>
+    <p>
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub
+              ><mi>T</mi><msub><mi>x</mi><mi>k</mi></msub></msub
+            ><mo>=</mo
+            ><msub
+              ><mi>T</mi
+              ><msub
+                ><mi>x</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub
+              ></msub
+            ><msub
+              ><mi>T</mi><mrow><mi>Δ</mi><mi>x</mi></mrow></msub
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            T_{x_k} = T_{x_{k-1}}T_{\Delta x} \tag{3}
+          </annotation></semantics
+        ></math
+      >
+    </p>
+    <p>
+      From,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub
+            ><mi>T</mi><msub><mi>x</mi><mi>k</mi></msub></msub
+          ><annotation encoding="application/x-tex"
+            >T_{x_{k}}</annotation
+          ></semantics
+        ></math
+      >, we can extract entries
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo
+              ><mn>3</mn><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>,</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>,</mo
+              ><mn>3</mn><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>,</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>,</mo
+              ><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex"
+            >(1,3), (2, 3), (2, 1)</annotation
+          ></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo
+            ><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow
+          ><annotation encoding="application/x-tex"
+            >(1, 1)</annotation
+          ></semantics
+        ></math
+      >, to get
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>x</mi
+          ><annotation encoding="application/x-tex">x</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>y</mi
+          ><annotation encoding="application/x-tex">y</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>s</mi><mi>i</mi><mi>n</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex"
+            >sin(\theta)</annotation
+          ></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>c</mi><mi>o</mi><mi>s</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex"
+            >cos(\theta)</annotation
+          ></semantics
+        ></math
+      >, from which we can also get and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>θ</mi><mo>=</mo><mi>a</mi><mi>t</mi><mi>a</mi><mi>n</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><mfrac
+                ><mrow
+                  ><mi>s</mi><mi>i</mi><mi>n</mi
+                  ><mrow
+                    ><mo stretchy="true" form="prefix">(</mo><mi>θ</mi
+                    ><mo stretchy="true" form="postfix">)</mo></mrow
+                  ></mrow
+                ><mrow
+                  ><mi>c</mi><mi>o</mi><mi>s</mi
+                  ><mo stretchy="false" form="prefix">(</mo><mi>θ</mi></mrow
+                ></mfrac
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex"
+            >\theta = atan(\frac{sin(\theta)}{cos(\theta})</annotation
+          ></semantics
+        ></math
       >
       for the next pose.
     </p>
@@ -488,24 +734,57 @@
     </p>
     <p>
       The optimal spread we chose which met the criteria was
-      <span class="math inline">\(\epsilon_x = 0.3\)</span>,
-      <span class="math inline">\(\epsilon_y = 0.3\)</span>, and
-      <span class="math inline">\(\epsilon_\theta = 0.005\)</span>.
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub><mi>ϵ</mi><mi>x</mi></msub
+            ><mo>=</mo><mn>0.3</mn></mrow
+          ><annotation encoding="application/x-tex"
+            >\epsilon_x = 0.3</annotation
+          ></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub><mi>ϵ</mi><mi>y</mi></msub
+            ><mo>=</mo><mn>0.3</mn></mrow
+          ><annotation encoding="application/x-tex"
+            >\epsilon_y = 0.3</annotation
+          ></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub><mi>ϵ</mi><mi>θ</mi></msub
+            ><mo>=</mo><mn>0.005</mn></mrow
+          ><annotation encoding="application/x-tex"
+            >\epsilon_\theta = 0.005</annotation
+          ></semantics
+        ></math
+      >.
     </p>
     <p>
       <strong>Synthesis: Updating Each Particle with Noisy Odometry</strong>
     </p>
     <p>
       For every timestep, each of the
-      <span class="math inline">\(N\)</span> particles representing the robot’s
-      position is updated to its next pose using an odometry with added noise
-      using the transformation matrix method described earlier in this section.
-      However, this may become computationally inefficient. To improve the speed
-      of our model, all N noisy odometry vectors are created at once as a 3xN
-      matrix and each computation is performed only once as an N-sized array of
-      all the particles. This ensures that instead of each particle being
-      updated one-by-one in series, the particles are all updated simultaneously
-      in parallel, greatly reduceing the computation time of the model.
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>N</mi
+          ><annotation encoding="application/x-tex">N</annotation></semantics
+        ></math
+      >
+      particles representing the robot’s position is updated to its next pose
+      using an odometry with added noise using the transformation matrix method
+      described earlier in this section. However, this may become
+      computationally inefficient. To improve the speed of our model, all N
+      noisy odometry vectors are created at once as a 3xN matrix and each
+      computation is performed only once as an N-sized array of all the
+      particles. This ensures that instead of each particle being updated
+      one-by-one in series, the particles are all updated simultaneously in
+      parallel, greatly reduceing the computation time of the model.
     </p>
     <p>
       This motion model constructs a spread of particle that consistently
@@ -539,64 +818,415 @@
       proportionality into the normalization constant, shown in (4).
     </p>
     <p>
-      <span class="math display"
-        >\[ P(p_k|z_{1,...,n}) \propto P(z_{1,...,n}|p_k) = \prod_{i=1}^n
-        P(z_i|p_k) \tag{4} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>P</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>p</mi><mi>k</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub
+                ><mi>z</mi
+                ><mrow
+                  ><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo
+                  ><mi>n</mi></mrow
+                ></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>∝</mo><mi>P</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub
+                ><mi>z</mi
+                ><mrow
+                  ><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo
+                  ><mi>n</mi></mrow
+                ></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>p</mi><mi>k</mi></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo
+            ><munderover
+              ><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow
+              ><mi>n</mi></munderover
+            ><mi>P</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>p</mi><mi>k</mi></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            P(p_k|z_{1,...,n}) \propto P(z_{1,...,n}|p_k) = \prod_{i=1}^n
+            P(z_i|p_k) \tag{4}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
       Each individual scan data’s probability is given by the following formula,
-      (5), with <span class="math inline">\(\alpha\)</span>’s chosen to add to
-      1, and probability values as defined in (6), (7), (8), and (9).
+      (5), with
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>α</mi
+          ><annotation encoding="application/x-tex"
+            >\alpha</annotation
+          ></semantics
+        ></math
+      >’s chosen to add to 1, and probability values as defined in (6), (7),
+      (8), and (9).
     </p>
     <p>
-      <span class="math display"
-        >\[ P(z_i|p_k) = \alpha_{hit}p_{hit} + \alpha_{short}p_{short} +
-        \alpha_{max}p_{max} + \alpha_{rand}p_{rand} \tag{5} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>P</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>p</mi><mi>k</mi></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo
+            ><msub
+              ><mi>α</mi><mrow><mi>h</mi><mi>i</mi><mi>t</mi></mrow></msub
+            ><msub
+              ><mi>p</mi><mrow><mi>h</mi><mi>i</mi><mi>t</mi></mrow></msub
+            ><mo>+</mo
+            ><msub
+              ><mi>α</mi
+              ><mrow
+                ><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow
+              ></msub
+            ><msub
+              ><mi>p</mi
+              ><mrow
+                ><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow
+              ></msub
+            ><mo>+</mo
+            ><msub
+              ><mi>α</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+            ><msub
+              ><mi>p</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+            ><mo>+</mo
+            ><msub
+              ><mi>α</mi
+              ><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi></mrow></msub
+            ><msub
+              ><mi>p</mi
+              ><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi></mrow></msub
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            P(z_i|p_k) = \alpha_{hit}p_{hit} + \alpha_{short}p_{short} +
+            \alpha_{max}p_{max} + \alpha_{rand}p_{rand} \tag{5}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      <span class="math display"
-        >\[ p_{hit}(z_i|x_k, m) = \begin{cases}
-        \eta\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{(z_i - d)^2}{2\sigma^2})
-        &amp; \text{if $0 \leq z_i \leq z_{max}$} \\ 0 &amp;
-        \text{otherwise}\end{cases} \tag{6} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub
+              ><mi>p</mi><mrow><mi>h</mi><mi>i</mi><mi>t</mi></mrow></msub
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>x</mi><mi>k</mi></msub
+              ><mo>,</mo><mi>m</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">{</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mi>η</mi
+                    ><mfrac
+                      ><mn>1</mn
+                      ><msqrt
+                        ><mrow
+                          ><mn>2</mn><mi>π</mi
+                          ><msup><mi>σ</mi><mn>2</mn></msup></mrow
+                        ></msqrt
+                      ></mfrac
+                    ><mo>exp</mo
+                    ><mrow
+                      ><mo stretchy="true" form="prefix">(</mo><mi>−</mi
+                      ><mfrac
+                        ><msup
+                          ><mrow
+                            ><mo stretchy="true" form="prefix">(</mo
+                            ><msub><mi>z</mi><mi>i</mi></msub
+                            ><mo>−</mo><mi>d</mi
+                            ><mo stretchy="true" form="postfix">)</mo></mrow
+                          ><mn>2</mn></msup
+                        ><mrow
+                          ><mn>2</mn><msup><mi>σ</mi><mn>2</mn></msup></mrow
+                        ></mfrac
+                      ><mo stretchy="true" form="postfix">)</mo></mrow
+                    ></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mrow
+                      ><mtext mathvariant="normal">if </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow
+                      ><mn>0</mn><mo>≤</mo><msub><mi>z</mi><mi>i</mi></msub
+                      ><mo>≤</mo
+                      ><msub
+                        ><mi>z</mi
+                        ><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+                      ></mrow
+                    ></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mtext mathvariant="normal">otherwise</mtext></mtd
+                  ></mtr
+                ></mtable
+              ></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            p_{hit}(z_i|x_k, m) = \begin{cases}
+            \eta\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{(z_i -
+            d)^2}{2\sigma^2}) &amp; \text{if $0 \leq z_i \leq z_{max}$} \\ 0
+            &amp; \text{otherwise}\end{cases} \tag{6}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      <span class="math display"
-        >\[ p_{short}(z_i|x_k, m) = \frac{2}{d}\begin{cases} 1 - \frac{z_i}{d}
-        &amp; \text{if $0 \leq z_i \leq d$ and $d \neq 0$} \\ 0 &amp;
-        \text{otherwise}\end{cases} \tag{7} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub
+              ><mi>p</mi
+              ><mrow
+                ><mi>s</mi><mi>h</mi><mi>o</mi><mi>r</mi><mi>t</mi></mrow
+              ></msub
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>x</mi><mi>k</mi></msub
+              ><mo>,</mo><mi>m</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo><mfrac><mn>2</mn><mi>d</mi></mfrac
+            ><mrow
+              ><mo stretchy="true" form="prefix">{</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>1</mn><mo>−</mo
+                    ><mfrac
+                      ><msub><mi>z</mi><mi>i</mi></msub
+                      ><mi>d</mi></mfrac
+                    ></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mrow
+                      ><mtext mathvariant="normal">if </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow
+                      ><mn>0</mn><mo>≤</mo><msub><mi>z</mi><mi>i</mi></msub
+                      ><mo>≤</mo><mi>d</mi></mrow
+                    ><mrow
+                      ><mspace width="0.333em"></mspace
+                      ><mtext mathvariant="normal"> and </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow><mi>d</mi><mo>≠</mo><mn>0</mn></mrow></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mtext mathvariant="normal">otherwise</mtext></mtd
+                  ></mtr
+                ></mtable
+              ></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            p_{short}(z_i|x_k, m) = \frac{2}{d}\begin{cases} 1 - \frac{z_i}{d}
+            &amp; \text{if $0 \leq z_i \leq d$ and $d \neq 0$} \\ 0 &amp;
+            \text{otherwise}\end{cases} \tag{7}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      <span class="math display"
-        >\[ p_{max}(z_i|x_k, m) = \begin{cases} \frac{1}{\epsilon} &amp;
-        \text{if $z_{max} - \epsilon \leq z_i \leq z_{max}$} \\ 0 &amp;
-        \text{otherwise}\end{cases} \tag{8} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub
+              ><mi>p</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>x</mi><mi>k</mi></msub
+              ><mo>,</mo><mi>m</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">{</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mfrac><mn>1</mn><mi>ϵ</mi></mfrac></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mrow
+                      ><mtext mathvariant="normal">if </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow
+                      ><msub
+                        ><mi>z</mi
+                        ><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+                      ><mo>−</mo><mi>ϵ</mi><mo>≤</mo
+                      ><msub><mi>z</mi><mi>i</mi></msub
+                      ><mo>≤</mo
+                      ><msub
+                        ><mi>z</mi
+                        ><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub
+                      ></mrow
+                    ></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mtext mathvariant="normal">otherwise</mtext></mtd
+                  ></mtr
+                ></mtable
+              ></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            p_{max}(z_i|x_k, m) = \begin{cases} \frac{1}{\epsilon} &amp;
+            \text{if $z_{max} - \epsilon \leq z_i \leq z_{max}$} \\ 0 &amp;
+            \text{otherwise}\end{cases} \tag{8}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      <span class="math display"
-        >\[ p_{rand}(z_i|x_k, m) = \frac{2}{d}\begin{cases} 1 - \frac{z_i}{d}
-        &amp; \text{if $0 \leq z_i \leq d$ and $d \neq 0$} \\ 0 &amp;
-        \text{otherwise}\end{cases} \tag{9} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><msub
+              ><mi>p</mi
+              ><mrow><mi>r</mi><mi>a</mi><mi>n</mi><mi>d</mi></mrow></msub
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>z</mi><mi>i</mi></msub
+              ><mo stretchy="false" form="prefix">|</mo
+              ><msub><mi>x</mi><mi>k</mi></msub
+              ><mo>,</mo><mi>m</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mo>=</mo><mfrac><mn>2</mn><mi>d</mi></mfrac
+            ><mrow
+              ><mo stretchy="true" form="prefix">{</mo
+              ><mtable
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>1</mn><mo>−</mo
+                    ><mfrac
+                      ><msub><mi>z</mi><mi>i</mi></msub
+                      ><mi>d</mi></mfrac
+                    ></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mrow
+                      ><mtext mathvariant="normal">if </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow
+                      ><mn>0</mn><mo>≤</mo><msub><mi>z</mi><mi>i</mi></msub
+                      ><mo>≤</mo><mi>d</mi></mrow
+                    ><mrow
+                      ><mspace width="0.333em"></mspace
+                      ><mtext mathvariant="normal"> and </mtext
+                      ><mspace width="0.333em"></mspace></mrow
+                    ><mrow><mi>d</mi><mo>≠</mo><mn>0</mn></mrow></mtd
+                  ></mtr
+                ><mtr
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mn>0</mn></mtd
+                  ><mtd columnalign="left" style="text-align: left"
+                    ><mtext mathvariant="normal">otherwise</mtext></mtd
+                  ></mtr
+                ></mtable
+              ></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex">
+            p_{rand}(z_i|x_k, m) = \frac{2}{d}\begin{cases} 1 - \frac{z_i}{d}
+            &amp; \text{if $0 \leq z_i \leq d$ and $d \neq 0$} \\ 0 &amp;
+            \text{otherwise}\end{cases} \tag{9}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
-      For a particle <span class="math inline">\(p_k\)</span> and scan range
-      <span class="math inline">\(z_i\)</span>,
-      <span class="math inline">\(x_i\)</span> is the particle’s position,
-      <span class="math inline">\(m\)</span> is the map, and
-      <span class="math inline">\(d\)</span> is the true distance for that scan
-      data point.
+      For a particle
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub><mi>p</mi><mi>k</mi></msub
+          ><annotation encoding="application/x-tex">p_k</annotation></semantics
+        ></math
+      >
+      and scan range
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub><mi>z</mi><mi>i</mi></msub
+          ><annotation encoding="application/x-tex">z_i</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><msub><mi>x</mi><mi>i</mi></msub
+          ><annotation encoding="application/x-tex">x_i</annotation></semantics
+        ></math
+      >
+      is the particle’s position,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>m</mi
+          ><annotation encoding="application/x-tex">m</annotation></semantics
+        ></math
+      >
+      is the map, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>d</mi
+          ><annotation encoding="application/x-tex">d</annotation></semantics
+        ></math
+      >
+      is the true distance for that scan data point.
     </p>
     <p><strong>Eliminating Repetitive Computations</strong></p>
     <p>
       Once we choose appropriate values for the alpha parameters, we can
-      directly compute <span class="math inline">\(P(z_{1,...,k}|p)\)</span> for
-      each particle. However, this process becomes computationally expensive
+      directly compute
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>P</mi
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub
+                ><mi>z</mi
+                ><mrow
+                  ><mn>1</mn><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo
+                  ><mi>k</mi></mrow
+                ></msub
+              ><mo stretchy="false" form="prefix">|</mo><mi>p</mi
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ></mrow
+          ><annotation encoding="application/x-tex"
+            >P(z_{1,...,k}|p)</annotation
+          ></semantics
+        ></math
+      >
+      for each particle. However, this process becomes computationally expensive
       very quickly when processing scans from the car in real time.
     </p>
     <figure>
@@ -627,17 +1257,49 @@
       To combat this, we trade some accuracy for speed by storing a table of
       precomputed probabilities. Note that each probability only requires
       knowing the corresponding measured distance
-      <span class="math inline">\(z\)</span> and the ground truth
-      <span class="math inline">\(d\)</span>, and is unaffected by choice of
-      units (changes in the distribution due to scaling are accounted for by the
-      standard deviation). Therefore, our table stores probabilities for all
-      pairs <span class="math inline">\((z, d)\)</span> where the two parameters
-      are integers and range from <span class="math inline">\(0\)</span> pixels
-      to <span class="math inline">\(200\)</span> pixels. As the scale from the
-      real world to the pixels is fixed, the robot can simply use the scaling
-      factor to convert its measurements to pixels, round to the nearest
-      integer, and index into the table accordingly rather than repeatedly
-      evaluating the functions above.
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>z</mi
+          ><annotation encoding="application/x-tex">z</annotation></semantics
+        ></math
+      >
+      and the ground truth
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>d</mi
+          ><annotation encoding="application/x-tex">d</annotation></semantics
+        ></math
+      >, and is unaffected by choice of units (changes in the distribution due
+      to scaling are accounted for by the standard deviation). Therefore, our
+      table stores probabilities for all pairs
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>,</mo
+            ><mi>d</mi><mo stretchy="true" form="postfix">)</mo></mrow
+          ><annotation encoding="application/x-tex"
+            >(z, d)</annotation
+          ></semantics
+        ></math
+      >
+      where the two parameters are integers and range from
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mn>0</mn
+          ><annotation encoding="application/x-tex">0</annotation></semantics
+        ></math
+      >
+      pixels to
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mn>200</mn
+          ><annotation encoding="application/x-tex">200</annotation></semantics
+        ></math
+      >
+      pixels. As the scale from the real world to the pixels is fixed, the robot
+      can simply use the scaling factor to convert its measurements to pixels,
+      round to the nearest integer, and index into the table accordingly rather
+      than repeatedly evaluating the functions above.
     </p>
     <p>
       And this is precisely what the robot does. By downsampling the laser scans
@@ -668,10 +1330,16 @@
       Initializing the particles is fairly straightforward. The robot always has
       access to some ground truth pose, therefore we can use a normal
       distribution centered at the ground truth pose with a variance,
-      <span class="math inline">\(\sigma\)</span>, for the initial particle
-      values, as demonstrated by <em>Fig. 2</em>. We decided to use a variance
-      of 0.1 because it generated a satisfactory and wide spread of particles
-      around the robot.
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>σ</mi
+          ><annotation encoding="application/x-tex"
+            >\sigma</annotation
+          ></semantics
+        ></math
+      >, for the initial particle values, as demonstrated by <em>Fig. 2</em>. We
+      decided to use a variance of 0.1 because it generated a satisfactory and
+      wide spread of particles around the robot.
     </p>
     <figure>
       <img
@@ -709,21 +1377,77 @@
       model, described in <em>Section 2.A.</em>, is applied to the current
       particle distribution and odometry, yielding a new particle distribution
       for the next timestep. The odometry calculation involves converting
-      continuous-time velocity, <span class="math inline">\(v\)</span>,
-      measurements into their displacement counterparts by multiplying them by
-      <span class="math inline">\(dt\)</span>, the change in time to find the
-      change in the <span class="math inline">\(x\)</span>,
-      <span class="math inline">\(y\)</span>, and
-      <span class="math inline">\(\theta\)</span> positions;
-      <span class="math inline">\(dx\)</span>,
-      <span class="math inline">\(dy\)</span>, and
-      <span class="math inline">\(d\theta\)</span> respectively; as shown in
-      (10).
+      continuous-time velocity,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>v</mi
+          ><annotation encoding="application/x-tex">v</annotation></semantics
+        ></math
+      >, measurements into their displacement counterparts by multiplying them
+      by
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow><mi>d</mi><mi>t</mi></mrow
+          ><annotation encoding="application/x-tex">dt</annotation></semantics
+        ></math
+      >, the change in time to find the change in the
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>x</mi
+          ><annotation encoding="application/x-tex">x</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>y</mi
+          ><annotation encoding="application/x-tex">y</annotation></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>θ</mi
+          ><annotation encoding="application/x-tex"
+            >\theta</annotation
+          ></semantics
+        ></math
+      >
+      positions;
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow><mi>d</mi><mi>x</mi></mrow
+          ><annotation encoding="application/x-tex">dx</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow><mi>d</mi><mi>y</mi></mrow
+          ><annotation encoding="application/x-tex">dy</annotation></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow><mi>d</mi><mi>θ</mi></mrow
+          ><annotation encoding="application/x-tex"
+            >d\theta</annotation
+          ></semantics
+        ></math
+      >
+      respectively; as shown in (10).
     </p>
     <p>
-      <span class="math display"
-        >\[ dx = v_x*dt \tag{10}\\ dy = v_y*dt\\ d\theta = v_{\theta}*dt
-        \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>d</mi><mi>x</mi><mo>=</mo><msub><mi>v</mi><mi>x</mi></msub
+            ><mo>*</mo><mi>d</mi><mi>t</mi><mi>d</mi><mi>y</mi><mo>=</mo
+            ><msub><mi>v</mi><mi>y</mi></msub
+            ><mo>*</mo><mi>d</mi><mi>t</mi><mi>d</mi><mi>θ</mi><mo>=</mo
+            ><msub><mi>v</mi><mi>θ</mi></msub
+            ><mo>*</mo><mi>d</mi><mi>t</mi></mrow
+          ><annotation encoding="application/x-tex">
+            dx = v_x*dt \tag{10} dy = v_y*dt d\theta = v_{\theta}*dt
+          </annotation></semantics
+        ></math
       >
     </p>
     <p>
@@ -733,9 +1457,41 @@
       odometry for an updated formula, (11).
     </p>
     <p>
-      <span class="math display"
-        >\[ dx = (v_x-v_{x0})/2*dt\\ dy = (v_y-v_{y0})/2*dt\\ d\theta =
-        (v_{\theta}-v_{\theta0})/2*dt \tag{11} \]</span
+      <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mrow
+            ><mi>d</mi><mi>x</mi><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>v</mi><mi>x</mi></msub
+              ><mo>−</mo
+              ><msub
+                ><mi>v</mi><mrow><mi>x</mi><mn>0</mn></mrow></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mi>/</mi><mn>2</mn><mo>*</mo><mi>d</mi><mi>t</mi><mi>d</mi
+            ><mi>y</mi><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>v</mi><mi>y</mi></msub
+              ><mo>−</mo
+              ><msub
+                ><mi>v</mi><mrow><mi>y</mi><mn>0</mn></mrow></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mi>/</mi><mn>2</mn><mo>*</mo><mi>d</mi><mi>t</mi><mi>d</mi
+            ><mi>θ</mi><mo>=</mo
+            ><mrow
+              ><mo stretchy="true" form="prefix">(</mo
+              ><msub><mi>v</mi><mi>θ</mi></msub
+              ><mo>−</mo
+              ><msub
+                ><mi>v</mi><mrow><mi>θ</mi><mn>0</mn></mrow></msub
+              ><mo stretchy="true" form="postfix">)</mo></mrow
+            ><mi>/</mi><mn>2</mn><mo>*</mo><mi>d</mi><mi>t</mi></mrow
+          ><annotation encoding="application/x-tex">
+            dx = (v_x-v_{x0})/2*dt dy = (v_y-v_{y0})/2*dt d\theta =
+            (v_{\theta}-v_{\theta0})/2*dt \tag{11}
+          </annotation></semantics
+        ></math
       >
     </p>
     <p><strong>Step 4: Update pose</strong></p>
@@ -812,11 +1568,29 @@
       robot parameters. The topics the robot reads for the particle filter is
       changed to read from the real robot’s LiDAR scan and odometry. In
       addition, we must also reverse the directions of the
-      <span class="math inline">\(x\)</span>,
-      <span class="math inline">\(y\)</span>, and
-      <span class="math inline">\(\theta\)</span> axes since the robot views
-      these values in the opposite direction. Performing these two changes
-      prepares the particle filter to be used in the real world.
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>x</mi
+          ><annotation encoding="application/x-tex">x</annotation></semantics
+        ></math
+      >,
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>y</mi
+          ><annotation encoding="application/x-tex">y</annotation></semantics
+        ></math
+      >, and
+      <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+        ><semantics
+          ><mi>θ</mi
+          ><annotation encoding="application/x-tex"
+            >\theta</annotation
+          ></semantics
+        ></math
+      >
+      axes since the robot views these values in the opposite direction.
+      Performing these two changes prepares the particle filter to be used in
+      the real world.
     </p>
     <p>
       However, before the translation from simulation to the real world may not
